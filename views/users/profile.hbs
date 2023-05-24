@@ -1,5 +1,5 @@
 {{!-- Profile --}}
-<div class="card container" >
+<div class="card " >
   <div class="row g-0">
     <div class="col-md-4">
       <img src="{{user.image}}" class="img-fluid rounded-start" alt="avatar">
@@ -9,6 +9,9 @@
         <h5 class="card-title">{{user.name}}</h5>
         <p class="card-text">{{user.email}}</p>
         <p class="card-text">{{comments.length}} 間已評論餐廳</p>
+        <p class="card-text">{{user.FavoritedRestaurants.length}} 間收藏的餐廳</p>
+        <p class="card-text">{{user.Followings.length}} Followings（追蹤者）</p>
+        <p class="card-text">{{user.Followers.length}} Followers（追隨者）</p>
         <br>
         <a href="/users/{{user.id}}/edit">
           <button class="btn btn-primary" type="button">Edit</button>
@@ -19,16 +22,71 @@
     </div>
   </div>
 </div>
-{{!-- 評論餐廳區 --}}
-<div class="card mb-3 container">
-  <div class="card-header">
-    {{comments.length}} 間已評論餐廳
-  </div>
-  <div class="card-body">
-    {{#each comments}}
+{{!-- Following --}}
+  <div class="row g-4 mt-3">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-header">
+          {{user.Followings.length}} Followings（追蹤者）
+        </div>
+        <div class="card-body">
+          {{#each user.Followings}}
+          <a href="/users/{{this.id}}">
+            <img class="card-img-top " src="{{this.image}}" alt="followers" style="max-width: 100px;"
+              onload="this.style.opacity=1;">
+          </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    {{!-- Comment --}}
+    <div class="col-md-8">
+    <div class="card">
+     <div class="card-header">
+     {{comments.length}} 間已評論餐廳
+     </div>
+      <div class="card-body">
+     {{#each comments}}
       <a href="/restaurants/{{this.Restaurant.id}}">
-        <img class="card-img-top " src="{{this.Restaurant.image}}" alt="commentrestaurant" style="max-width: 100px;" onload="this.style.opacity=1;">
+        <img class="card-img-top " src="{{this.Restaurant.image}}" alt="restaurant" style="max-width: 100px;" onload="this.style.opacity=1;">
       </a>
       {{/each}}
+      </div>
+      </div>
+    </div>
+  </div>
+
+{{!-- Follower --}}
+<div class="row g-4 mt-3">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        {{user.Followers.length}} Followers（追隨者）
+      </div>
+      <div class="card-body">
+        {{#each user.Followers}}
+        <a href="/users/{{this.id}}">
+          <img class="card-img-top " src="{{this.image}}" alt="followers" style="max-width: 100px;"
+            onload="this.style.opacity=1;">
+        </a>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+  {{!-- Favorite--}}
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        {{user.FavoritedRestaurants.length}} 間收藏的餐廳
+      </div>
+      <div class="card-body">
+        {{#each user.FavoritedRestaurants}}
+        <a href="/restaurants/{{this.id}}">
+          <img class="card-img-top " src="{{this.image}}" alt="restaurant" style="max-width: 100px;"
+            onload="this.style.opacity=1;">
+        </a>
+        {{/each}}
+      </div>
+    </div>
   </div>
 </div>
